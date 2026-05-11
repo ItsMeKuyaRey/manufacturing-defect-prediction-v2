@@ -7,13 +7,6 @@ import sqlite3
 from pathlib import Path
 import plotly.express as px
 
-st.set_page_config(
-    page_title="DefectGuard AI",
-    page_icon="🔧",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
 # Custom CSS
 st.markdown("""
 <style>
@@ -67,14 +60,11 @@ init_db()
 
 # Sidebar
 with st.sidebar:
-    st.image("https://img.icons8.com/fluency/96/factory.png", width=80)
-    st.title("DefectGuard AI")
-    st.markdown("**AI-Powered Quality Control**")
     
     mode = st.radio("**Main Menu**", 
                    ["Manual Input", "Batch Prediction", "History"])
     
-    st.success("✅ Model Loaded")
+    st.success("Model Loaded")
     st.caption("Random Forest • 95.06% Accuracy")
 
 #  MAIN TITLE 
@@ -92,7 +82,7 @@ if mode == "Manual Input":
         with cols[i % 4]:
             input_data[feature] = st.number_input(f"**{feature}**", value=50.0, format="%.4f")
 
-    if st.button("🔮 Predict Defect Risk", type="primary", use_container_width=True):
+    if st.button(" Predict Defect Risk", type="primary", use_container_width=True):
         with st.spinner("Analyzing with Random Forest Model..."):
             input_df = pd.DataFrame([input_data])
             pred = model.predict(input_df)[0]
@@ -134,11 +124,11 @@ elif mode == "Batch Prediction":
                 df['Predicted_Defect'] = model.predict(df[feature_names])
                 df['Defect_Probability'] = model.predict_proba(df[feature_names])[:, 1]
                 
-                st.success(f"✅ {len(df)} rows processed!")
+                st.success(f" {len(df)} rows processed!")
                 st.dataframe(df, use_container_width=True)
                 
                 csv = df.to_csv(index=False).encode()
-                st.download_button("📥 Download Results", csv, "predictions.csv", "text/csv")
+                st.download_button(" Download Results", csv, "predictions.csv", "text/csv")
 
 elif mode == "History":
     st.subheader("Prediction History")
