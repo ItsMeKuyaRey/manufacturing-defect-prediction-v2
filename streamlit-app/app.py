@@ -12,9 +12,11 @@ st.title("🛠️ Manufacturing Defect Prediction System")
 st.markdown("**Random Forest Model** | Accuracy: **95.06%**")
 
 # Paths
-MODEL_PATH = Path("../models/random_forest_defect.pkl")
-FEATURE_PATH = Path("../models/feature_info.json")
-DB_PATH = Path("streamlit_predictions.db")
+# Paths - Fixed for Streamlit Cloud
+BASE_DIR = Path(__file__).parent
+MODEL_PATH = BASE_DIR.parent / "models" / "random_forest_defect.pkl"
+FEATURE_PATH = BASE_DIR.parent / "models" / "feature_info.json"
+DB_PATH = BASE_DIR / "streamlit_predictions.db"
 
 # Load model and features
 @st.cache_resource
