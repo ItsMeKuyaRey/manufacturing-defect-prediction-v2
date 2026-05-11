@@ -6,7 +6,7 @@ from datetime import datetime
 import sqlite3
 from pathlib import Path
 
-# ====================== CONFIG ======================
+#  CONFIG
 st.set_page_config(page_title="Defect Prediction", layout="wide")
 st.title("🛠️ Manufacturing Defect Prediction System")
 st.markdown("**Random Forest Model** | Accuracy: **95.06%**")
@@ -28,7 +28,7 @@ def load_model():
 
 model, feature_names = load_model()
 
-# ====================== DATABASE ======================
+#  DATABASE 
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     conn.execute('''
@@ -85,7 +85,7 @@ if mode == "Manual Input":
         conn.commit()
         conn.close()
 
-# ====================== BATCH CSV ======================
+# BATCH CSV
 elif mode == "Batch Prediction (CSV)":
     st.subheader("Upload CSV for Batch Prediction")
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
@@ -108,7 +108,7 @@ elif mode == "Batch Prediction (CSV)":
             csv = df.to_csv(index=False).encode()
             st.download_button("📥 Download Predictions", csv, "defect_predictions.csv", "text/csv")
 
-# ====================== HISTORY ======================
+#HISTORY
 elif mode == "History":
     st.subheader("Prediction History")
     conn = sqlite3.connect(DB_PATH)
