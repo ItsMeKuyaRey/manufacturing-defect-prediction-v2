@@ -45,10 +45,10 @@ def init_db():
 
 init_db()
 
-# ====================== SIDEBAR ======================
+#  SIDEBAR 
 mode = st.sidebar.radio("Choose Mode", ["Manual Input", "Batch Prediction (CSV)", "History"])
 
-# ====================== MANUAL INPUT ======================
+#  MANUAL INPUT 
 if mode == "Manual Input":
     st.subheader("Enter Production Parameters")
     
@@ -70,10 +70,10 @@ if mode == "Manual Input":
         proba = model.predict_proba(input_df)[0][1]
         
         if pred == 1:
-            st.error("🚨 DEFECT LIKELY")
+            st.error(" DEFECT LIKELY")
             st.metric("Defect Probability", f"{proba:.1%}")
         else:
-            st.success("✅ No Defect Predicted")
+            st.success(" No Defect Predicted")
             st.metric("Defect Probability", f"{proba:.1%}")
         
         # Save to database
@@ -101,7 +101,7 @@ elif mode == "Batch Prediction (CSV)":
             df['Predicted_Defect'] = predictions
             df['Defect_Probability'] = probabilities
             
-            st.success(f"✅ Batch Prediction Complete! {len(df)} rows processed.")
+            st.success(f" Batch Prediction Complete! {len(df)} rows processed.")
             st.dataframe(df, use_container_width=True)
             
             # Download button
@@ -120,4 +120,4 @@ elif mode == "History":
     else:
         st.info("No predictions yet.")
 
-st.sidebar.success("Model Loaded Successfully ✅")
+st.sidebar.success("Model Loaded Successfully ")
